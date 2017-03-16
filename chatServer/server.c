@@ -216,18 +216,19 @@ int main(int argc, char ** argv)
 						case 'k'	:	//UNUSED
 									break;
 						case 'l'	:	//list all users in all rooms
-									/*snprintf(content,sizeof(content)+1,"List of Users:\n %s%s%s%s%s%s%s%s%s%s",
-															clientList[0].name+"\n",
-															clientList[1].name+"\n",
-															clientList[2].name+"\n",
-															clientList[3].name+"\n",
-															clientList[4].name+"\n",
-															clientList[5].name+"\n",
-															clientList[6].name+"\n",
-															clientList[7].name+"\n",
-															clientList[8].name+"\n",
-															clientList[9].name+"\n");
-									write(currentClient->socket,packet,sizeof(packet));*/
+									snprintf(option, sizeof(option)+1, "SERVER"); 
+									for(x=0;x<10;x++){
+										if(clientList[x].name!='\0'){
+											strcat(content, clientList[x].name);
+											strcat(content, "\n");
+										}
+									}
+									snprintf(content,sizeof(content)+1, "%s", "Users: ");
+									for(x=1;x<21;x++)
+										packet[x]=option[x-1];
+									for(x=29;x<sizeof(packet);x++)
+										packet[x]=content[x-29];
+									write(currentClient->socket,packet,sizeof(packet));
 									break;
 						case 'm'	:	//UNUSED
 									break;
